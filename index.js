@@ -10,9 +10,9 @@ bootstrap(app, express);
 
 cron.schedule("* */6 * * * *", otpCronDeletion);
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.warn("Server is running on port", port);
 });
 
-const io = initSocket(server);
+initSocket(server);

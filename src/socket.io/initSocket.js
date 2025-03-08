@@ -14,6 +14,4 @@ export const initSocket = (server) => {
     // listening to >> send notification when apply to job
     socket.on("applyForJob", sendJobApplicationNotification(socket, io));
   });
-
-  return io;
 };
