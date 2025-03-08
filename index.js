@@ -2,7 +2,7 @@ import express from "express";
 import bootstrap from "./src/app.controller.js";
 import { initSocket } from "./src/socket.io/initSocket.js";
 import cron from "node-cron";
-import { otpCronDeletion } from "./src/modules/auth/otp.cron.js";
+import { otpCronDeletion } from "./src/utils/otp/otp.cron.js";
 
 const app = express();
 
