@@ -38,3 +38,9 @@ A robust and scalable backend system for a hiring platform, built with **Express
    ```bash
    git clone https://github.com/0xmond/hiring-platform-app.git
    cd hiring-platform-app
+2. Install dependencies:
+   ```bash
+   npm i
+3. Run:
+   ```bash
+   npm run dev
