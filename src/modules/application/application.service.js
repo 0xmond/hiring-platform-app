@@ -15,6 +15,16 @@ import {
 import cloudinary from "../../utils/upload/cloudinary.js";
 
 export const applyForJob = async (req, res, next) => {
+  // check if user already applied for job
+  const isApplied = await Application.findOne({
+    applierId: req.user._id,
+    jobId: req.job._id,
+    deletedAt: null,
+  });
+
+  if (isApplied)
+    return next(new Error(messages.application.alreadyApplied, { cause: 400 }));
+
   // upload cv to cloud
   const { public_id, secure_url } = await cloudinary.uploader.upload(
     req.file.path,
@@ -42,7 +52,7 @@ export const applyForJob = async (req, res, next) => {
 };
 
 export const updateApplicationStatus = async (req, res, next) => {
-  // parse ids from request params
+  // parse applications id from request params
   const { id } = req.params;
   const { status } = req.body; // boolean
 
@@ -53,6 +63,7 @@ export const updateApplicationStatus = async (req, res, next) => {
   const application = await Application.findOne({
     _id: id,
     deletedAt: null,
+    jobId: req.job._id,
   }).populate([{ path: "applierId", select: "email" }]);
 
   if (!application)

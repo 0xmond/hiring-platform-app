@@ -32,6 +32,8 @@ router.post(
 router.patch(
   "/:id",
   isValid(applicationValidation.updateApplicationStatus),
+  asyncHandler(checkCompany),
+  asyncHandler(checkJob),
   asyncHandler(applicationService.updateApplicationStatus)
 );
 

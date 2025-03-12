@@ -28,7 +28,7 @@ router.use(asyncHandler(isAuthenticate), isAuthorized([Roles.USER]));
 router.post(
   "/",
   isValid(jobValidation.createJob),
-  checkCompany,
+  asyncHandler(checkCompany),
   asyncHandler(jobService.createJob)
 );
 
@@ -38,15 +38,15 @@ router
   // update job
   .put(
     isValid(jobValidation.updateJob),
-    checkCompany,
-    checkJob,
+    asyncHandler(checkCompany),
+    asyncHandler(checkJob),
     asyncHandler(jobService.updateJob)
   )
   // delete job
   .delete(
     isValid(jobValidation.deleteJob),
-    checkCompany,
-    checkJob,
+    asyncHandler(checkCompany),
+    asyncHandler(checkJob),
     asyncHandler(jobService.deleteJob)
   );
 
@@ -54,7 +54,7 @@ router
 router.get(
   "/:jobId?",
   isValid(jobValidation.getJob),
-  checkCompany,
+  asyncHandler(checkCompany),
   asyncHandler(jobService.getJob)
 );
 

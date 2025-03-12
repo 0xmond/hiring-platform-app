@@ -3,8 +3,19 @@ import * as authService from "./auth.service.js";
 import { asyncHandler } from "../../utils/error/async-handler.js";
 import { isValid } from "../../middlewares/validation.middleware.js";
 import * as authValidation from "./auth.schema.js";
+import rateLimit from "express-rate-limit";
 
 const router = Router();
+
+router.use(
+  rateLimit({
+    windowMs: 30 * 60 * 1000,
+    max: 5,
+    message: "Too many attempts. Please try again later.",
+    standardHeaders: true,
+    legacyHeaders: false,
+  })
+);
 
 // sign in with google
 router.post(

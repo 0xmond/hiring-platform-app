@@ -16,7 +16,10 @@ export const messages = {
   coverPic: getMessages("Cover picture"),
   company: getMessages("Company"),
   job: getMessages("Job"),
-  application: getMessages("Job application"),
+  application: {
+    ...getMessages("Job application"),
+    alreadyApplied: "You already applied for this job before",
+  },
 };
 
 export const unauthorized = "Unauthorized";

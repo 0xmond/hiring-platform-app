@@ -100,7 +100,10 @@ export const softDeleteCompany = async (req, res, next) => {
   const { companyId } = req.params;
 
   // check if the logged in user is not the owner nor admin
-  if (req.user.role != Roles.ADMIN && !company.createdBy.equals(req.user._id))
+  if (
+    req.user.role != Roles.ADMIN &&
+    !req.company.createdBy.equals(req.user._id)
+  )
     return next(new Error(unauthorized, { cause: 401 }));
 
   // soft delete company
@@ -119,6 +122,10 @@ export const getCompanyJobs = async (req, res, next) => {
 
 // bonus
 export const getJobApplicationsInSpecificDay = async (req, res, next) => {
+  // check if the user is the owner or hr of company
+  if (!req.company.HRs.includes(req.user._id))
+    return next(new Error(unauthorized, { cause: 401 }));
+
   // parse date from request body
   const { date } = req.body;
 

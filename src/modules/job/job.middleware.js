@@ -6,7 +6,11 @@ const checkJob = async (req, res, next) => {
   const { jobId } = req.params;
 
   // get job
-  const job = await Job.findOne({ _id: jobId, deletedAt: null });
+  const job = await Job.findOne({
+    _id: jobId,
+    deletedAt: null,
+    companyId: req.company._id,
+  });
 
   // check if job is not exist
   if (!job) return next(new Error(messages.job.notFound, { cause: 404 }));

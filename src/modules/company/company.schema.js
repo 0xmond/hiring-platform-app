@@ -40,7 +40,7 @@ export const getCompanyJobs = joi
 export const getJobApplicationsInSpecificDay = joi
   .object({
     companyId: joi.custom(isValidId).required(),
-    date: joi.string().required(),
+    date: joi.date().required(),
   })
   .required();
 
